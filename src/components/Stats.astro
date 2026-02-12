@@ -1,0 +1,120 @@
+---
+---
+
+<section class="py-20 relative">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <!-- Users -->
+      <div class="glass rounded-2xl p-6 text-center card-hover">
+        <div class="text-4xl md:text-5xl font-bold gradient-text mb-2">
+          <span id="stat-users" class="counter">...</span>
+        </div>
+        <div class="text-gray-400 text-sm md:text-base">Aktive Nutzer</div>
+      </div>
+
+      <!-- Questions -->
+      <div class="glass rounded-2xl p-6 text-center card-hover">
+        <div class="text-4xl md:text-5xl font-bold gradient-text mb-2">
+          <span id="stat-questions" class="counter">...</span>
+        </div>
+        <div class="text-gray-400 text-sm md:text-base">Quiz-Fragen</div>
+      </div>
+
+      <!-- Flashcards -->
+      <div class="glass rounded-2xl p-6 text-center card-hover">
+        <div class="text-4xl md:text-5xl font-bold gradient-text mb-2">
+          <span id="stat-flashcards" class="counter">...</span>
+        </div>
+        <div class="text-gray-400 text-sm md:text-base">Lernkarten</div>
+      </div>
+
+      <!-- Success Rate -->
+      <div class="glass rounded-2xl p-6 text-center card-hover">
+        <div class="text-4xl md:text-5xl font-bold gradient-text mb-2">
+          <span id="stat-success" class="counter">...</span>
+        </div>
+        <div class="text-gray-400 text-sm md:text-base">Bestehensquote</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const SUPABASE_URL = 'https://hcxxaijdcthnkqqiqxzo.supabase.co';
+
+  // Animate counter
+  function animateCounter(element: HTMLElement, target: number, suffix: string = '') {
+    const duration = 2000;
+    const steps = 60;
+    const stepTime = duration / steps;
+    let current = 0;
+    const increment = target / steps;
+
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+      element.textContent = Math.floor(current).toLocaleString('de-DE') + suffix;
+    }, stepTime);
+  }
+
+  // Fetch stats from Supabase Edge Function
+  async function fetchStats() {
+    try {
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/landing-stats`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch stats');
+      }
+
+      const data = await response.json();
+
+      // Animate counters
+      const usersEl = document.getElementById('stat-users');
+      const questionsEl = document.getElementById('stat-questions');
+      const flashcardsEl = document.getElementById('stat-flashcards');
+      const successEl = document.getElementById('stat-success');
+
+      if (usersEl) animateCounter(usersEl, data.users || 0);
+      if (questionsEl) animateCounter(questionsEl, data.questions || 0);
+      if (flashcardsEl) animateCounter(flashcardsEl, data.flashcards || 0);
+      if (successEl) animateCounter(successEl, data.successRate || 0, '%');
+
+    } catch (error) {
+      console.error('Error fetching stats:', error);
+      // Fallback to static values if API fails
+      const usersEl = document.getElementById('stat-users');
+      const questionsEl = document.getElementById('stat-questions');
+      const flashcardsEl = document.getElementById('stat-flashcards');
+      const successEl = document.getElementById('stat-success');
+
+      if (usersEl) usersEl.textContent = '500+';
+      if (questionsEl) questionsEl.textContent = '1.200+';
+      if (flashcardsEl) flashcardsEl.textContent = '750+';
+      if (successEl) successEl.textContent = '94%';
+    }
+  }
+
+  // Intersection Observer to trigger animation when visible
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        fetchStats();
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const statsSection = document.querySelector('#stat-users')?.closest('section');
+    if (statsSection) {
+      observer.observe(statsSection);
+    }
+  });
+</script>
