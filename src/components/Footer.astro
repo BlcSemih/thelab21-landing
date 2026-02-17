@@ -1,0 +1,18 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="py-8 px-6 border-t border-border">
+  <div class="max-w-6xl mx-auto">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-6">
+        <span class="text-foreground font-medium">thelab21</span>
+        <span class="text-muted text-sm">&copy; {currentYear} thelab21</span>
+      </div>
+      <div class="flex items-center gap-6 text-sm">
+        <a href="/impressum" class="text-muted hover:text-foreground transition-colors">Impressum</a>
+        <a href="/datenschutz" class="text-muted hover:text-foreground transition-colors">Datenschutz</a>
+      </div>
+    </div>
+  </div>
+</footer>

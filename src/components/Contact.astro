@@ -1,0 +1,89 @@
+---
+---
+
+<section id="kontakt" class="py-24 px-6">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="section-title">Projekt starten</h2>
+      <p class="section-subtitle mx-auto">
+        Du hast eine Idee? Lass uns darüber sprechen.
+      </p>
+    </div>
+    
+    <div class="max-w-xl mx-auto">
+      <form class="card p-8" id="contact-form">
+        <div class="space-y-6">
+          <!-- Name -->
+          <div>
+            <label for="name" class="block text-sm font-medium text-foreground mb-2">Name</label>
+            <input 
+              type="text" 
+              id="name" 
+              name="name" 
+              required
+              class="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet transition-all"
+              placeholder="Dein Name"
+            />
+          </div>
+          
+          <!-- Email -->
+          <div>
+            <label for="email" class="block text-sm font-medium text-foreground mb-2">E-Mail</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              required
+              class="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet transition-all"
+              placeholder="deine@email.de"
+            />
+          </div>
+          
+          <!-- Interest -->
+          <div>
+            <label for="interest" class="block text-sm font-medium text-foreground mb-2">Interesse</label>
+            <select 
+              id="interest" 
+              name="interest"
+              class="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet transition-all"
+            >
+              <option value="website">Website</option>
+              <option value="webapp">Web-App</option>
+              <option value="mobile">Mobile App</option>
+              <option value="other">Sonstiges</option>
+            </select>
+          </div>
+          
+          <!-- Message -->
+          <div>
+            <label for="message" class="block text-sm font-medium text-foreground mb-2">Nachricht</label>
+            <textarea 
+              id="message" 
+              name="message" 
+              rows="4" 
+              required
+              class="w-full px-4 py-3 bg-background border border-border rounded-lg text-foreground placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-violet/50 focus:border-violet transition-all resize-none"
+              placeholder="Erzähl uns von deinem Projekt..."
+            ></textarea>
+          </div>
+          
+          <!-- Submit -->
+          <button type="submit" class="btn-primary w-full">
+            Nachricht senden
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('contact-form');
+  
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    // For now, just show an alert
+    alert('Vielen Dank für deine Nachricht! Wir melden uns bald bei dir.');
+    form.reset();
+  });
+</script>

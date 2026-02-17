@@ -1,0 +1,54 @@
+---
+const services = [
+  {
+    title: 'Webentwicklung',
+    description: 'Moderne Websites die performen. Von Landing Pages bis zu komplexen Business-Websites.',
+    icon: 'globe',
+  },
+  {
+    title: 'Web-Apps',
+    description: 'Individuelle Web-Applikationen mit React & Next.js. Dashboards, Tools, Plattformen.',
+    icon: 'monitor',
+  },
+  {
+    title: 'Mobile Apps',
+    description: 'Native und Cross-Platform Apps für iOS und Android.',
+    icon: 'smartphone',
+  },
+];
+---
+
+<section id="services" class="py-24 px-6">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="section-title text-center mb-16">Was wir machen</h2>
+    
+    <div class="grid md:grid-cols-3 gap-6">
+      {services.map((service) => (
+        <div class="card group">
+          <div class="w-12 h-12 rounded-lg bg-violet/10 flex items-center justify-center mb-4 group-hover:bg-violet/20 transition-colors">
+            {service.icon === 'globe' && (
+              <svg class="w-6 h-6 text-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" stroke-width="2" />
+                <path stroke-width="2" d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+              </svg>
+            )}
+            {service.icon === 'monitor' && (
+              <svg class="w-6 h-6 text-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <rect x="2" y="3" width="20" height="14" rx="2" stroke-width="2" />
+                <path stroke-width="2" d="M8 21h8M12 17v4" />
+              </svg>
+            )}
+            {service.icon === 'smartphone' && (
+              <svg class="w-6 h-6 text-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <rect x="5" y="2" width="14" height="20" rx="2" stroke-width="2" />
+                <path stroke-width="2" d="M12 18h.01" />
+              </svg>
+            )}
+          </div>
+          <h3 class="text-xl font-semibold text-foreground mb-2">{service.title}</h3>
+          <p class="text-muted">{service.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
